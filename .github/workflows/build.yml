@@ -16,6 +16,12 @@ jobs:
       - name: Show Xcode version
         run: xcodebuild -version
 
+      - name: Install XcodeGen
+        run: brew install xcodegen
+
+      - name: Generate Xcode project
+        run: cd FloateingSights4var2 && xcodegen generate
+
       - name: List schemes
         run: |
           xcodebuild -project FloateingSights4var2/FloateingSights4var2.xcodeproj \
@@ -27,7 +33,6 @@ jobs:
             -project FloateingSights4var2/FloateingSights4var2.xcodeproj \
             -scheme FloateingSights4var2 \
             -destination 'generic/platform=iOS Simulator' \
-            SWIFT_VERSION=5 \
             CODE_SIGN_IDENTITY="" \
             CODE_SIGNING_REQUIRED=NO \
             CODE_SIGNING_ALLOWED=NO \
