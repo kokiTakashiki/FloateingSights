@@ -64,7 +64,7 @@ class ViewController: UIViewController, ScrollViewDelegate, ARSCNViewDelegate {
 
     private func updateTime() {
         var time = Float(Date().timeIntervalSince(startTime))
-        let timeData = Data(bytes: &time, count: MemoryLayout<Float>.size)
+        let timeData = withUnsafeBytes(of: &time) { Data($0) }
         sofaNode?.geometry?.firstMaterial?.setValue(timeData, forKey: "time")
     }
 
@@ -77,7 +77,7 @@ class ViewController: UIViewController, ScrollViewDelegate, ARSCNViewDelegate {
 
         // updateのループ処理を開始
         _display_link = CADisplayLink(target: self, selector: #selector(ViewController.polling(_:)))
-        _display_link.add(to: RunLoop.current, forMode: RunLoopMode.commonModes)
+        _display_link.add(to: RunLoop.current, forMode: RunLoop.Mode.common)
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -86,7 +86,7 @@ class ViewController: UIViewController, ScrollViewDelegate, ARSCNViewDelegate {
         sceneView.session.pause()
 
         // updateのループ処理を終了
-        _display_link.remove(from: RunLoop.current, forMode: RunLoopMode.commonModes)
+        _display_link.remove(from: RunLoop.current, forMode: RunLoop.Mode.common)
     }
 
     override func didReceiveMemoryWarning() {
