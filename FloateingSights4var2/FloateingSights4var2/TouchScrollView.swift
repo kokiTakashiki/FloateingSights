@@ -8,14 +8,13 @@
 
 import UIKit
 
-protocol ScrollViewDelegate{
+protocol ScrollViewDelegate {
     func scrollViewTapped(tag: Int)
 }
 
 class TouchScrollView: UIScrollView {
-    
     var Delegate: ScrollViewDelegate!
-    
+
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesEnded(touches, with: event)
         for touch: UITouch in touches {
@@ -23,5 +22,3 @@ class TouchScrollView: UIScrollView {
         }
     }
 }
-
-

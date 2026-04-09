@@ -6,12 +6,11 @@
 //  Copyright © 平成30年 takasiki. All rights reserved.
 //
 
-import UIKit
-import SceneKit
 import ARKit
+import SceneKit
+import UIKit
 
 class Furniture {
-    
     static func create(sceneName: String, width: CGFloat) -> SCNNode {
         // シーンからノードを取り出す
         let scene = SCNScene(named: sceneName)!
@@ -25,4 +24,3 @@ class Furniture {
         return node!
     }
 }
-
