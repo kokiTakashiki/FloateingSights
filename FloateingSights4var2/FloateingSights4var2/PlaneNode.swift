@@ -6,8 +6,8 @@
 //  Copyright © 平成30年 takasiki. All rights reserved.
 //
 
-import ARKit
-import SceneKit
+@preconcurrency import ARKit
+@preconcurrency import SceneKit
 import UIKit
 
 class PlaneNode: SCNNode {

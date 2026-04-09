@@ -8,6 +8,7 @@
 
 import UIKit
 
+@MainActor
 protocol ScrollViewDelegate {
     func scrollViewTapped(tag: Int)
 }

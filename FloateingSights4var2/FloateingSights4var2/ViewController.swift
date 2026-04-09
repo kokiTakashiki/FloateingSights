@@ -6,8 +6,8 @@
 //  Copyright © 平成30年 takasiki. All rights reserved.
 //
 
-import ARKit
-import SceneKit
+@preconcurrency import ARKit
+@preconcurrency import SceneKit
 import UIKit
 
 class ViewController: UIViewController, ScrollViewDelegate, ARSCNViewDelegate {
@@ -41,9 +41,9 @@ class ViewController: UIViewController, ScrollViewDelegate, ARSCNViewDelegate {
         sceneView.showsStatistics = true
 
         // time はめたるから呼ぶにはscn_frameを使うがそのためにはタイム計算をして、その結果データをmaterialにセットすると良い
-        Timer.scheduledTimer(withTimeInterval: 1.0 / 60.0, repeats: true, block: { _ in
-            self.updateTime()
-        })
+        Timer.scheduledTimer(withTimeInterval: 1.0 / 60.0, repeats: true) { [weak self] _ in
+            self?.updateTime()
+        }
 
         // Create a new scene
         let scene = SCNScene()
@@ -144,8 +144,8 @@ class ViewController: UIViewController, ScrollViewDelegate, ARSCNViewDelegate {
 
     // MARK: - ARSCNViewDelegate
 
-    func renderer(_: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
-        DispatchQueue.main.async {
+    nonisolated func renderer(_: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
+        Task { @MainActor in
             if let planeAnchor = anchor as? ARPlaneAnchor {
                 // 平面を表現するノードを追加する
                 let panelNode = PlaneNode(anchor: planeAnchor)
@@ -157,8 +157,8 @@ class ViewController: UIViewController, ScrollViewDelegate, ARSCNViewDelegate {
         }
     }
 
-    func renderer(_: SCNSceneRenderer, didUpdate node: SCNNode, for anchor: ARAnchor) {
-        DispatchQueue.main.async {
+    nonisolated func renderer(_: SCNSceneRenderer, didUpdate node: SCNNode, for anchor: ARAnchor) {
+        Task { @MainActor in
             if let planeAnchor = anchor as? ARPlaneAnchor, let planeNode = node.childNodes[0] as? PlaneNode {
                 if self.uiSwitch.isOn {
                     // Switchがonの時の処理

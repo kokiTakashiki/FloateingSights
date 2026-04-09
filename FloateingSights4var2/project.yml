@@ -2,8 +2,7 @@ name: FloateingSights4var2
 options:
   bundleIdPrefix: takashiki
   deploymentTarget:
-    iOS: "11.0"
-  xcodeVersion: "0900"
+    iOS: "18.0"
 
 targets:
   FloateingSights4var2:
@@ -15,7 +14,7 @@ targets:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: takashiki.FloateingSights4var2
         PRODUCT_NAME: FloateingSights4var2
-        SWIFT_VERSION: "5"
+        SWIFT_VERSION: "6"
         TARGETED_DEVICE_FAMILY: "2"
         INFOPLIST_FILE: FloateingSights4var2/Info.plist
         DEVELOPMENT_TEAM: GY636G2259

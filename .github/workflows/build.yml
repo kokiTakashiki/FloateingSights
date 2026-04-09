@@ -8,24 +8,22 @@ on:
 
 jobs:
   build:
-    runs-on: macos-14
+    runs-on: macos-15
 
     steps:
       - uses: actions/checkout@v4
+
+      - name: Select Xcode
+        run: sudo xcode-select -s /Applications/Xcode_26.app/Contents/Developer
 
       - name: Show Xcode version
         run: xcodebuild -version
 
       - name: Install XcodeGen
-        run: brew install xcodegen
+        run: HOMEBREW_NO_AUTO_UPDATE=1 brew install xcodegen
 
       - name: Generate Xcode project
         run: cd FloateingSights4var2 && xcodegen generate
-
-      - name: List schemes
-        run: |
-          xcodebuild -project FloateingSights4var2/FloateingSights4var2.xcodeproj \
-            -list
 
       - name: Build
         run: |
