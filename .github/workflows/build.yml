@@ -16,19 +16,19 @@ jobs:
       - name: Show Xcode version
         run: xcodebuild -version
 
-      - name: List available destinations
+      - name: List schemes
         run: |
           xcodebuild -project FloateingSights4var2/FloateingSights4var2.xcodeproj \
-            -target FloateingSights4var2 \
-            -showdestinations
+            -list
 
       - name: Build
         run: |
           xcodebuild build \
             -project FloateingSights4var2/FloateingSights4var2.xcodeproj \
-            -target FloateingSights4var2 \
-            -destination 'platform=iOS Simulator,name=iPad Air' \
+            -scheme FloateingSights4var2 \
+            -destination 'generic/platform=iOS Simulator' \
             SWIFT_VERSION=5 \
             CODE_SIGN_IDENTITY="" \
             CODE_SIGNING_REQUIRED=NO \
-            CODE_SIGNING_ALLOWED=NO
+            CODE_SIGNING_ALLOWED=NO \
+            DEVELOPMENT_TEAM=""
