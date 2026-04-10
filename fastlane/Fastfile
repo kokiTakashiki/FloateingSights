@@ -49,7 +49,7 @@ platform :ios do
       xcargs: [
         "CODE_SIGN_STYLE=Manual",
         "DEVELOPMENT_TEAM=GY636G2259",
-        "CODE_SIGN_IDENTITY=Apple Distribution",
+        "CODE_SIGN_IDENTITY='Apple Distribution'",
         "PROVISIONING_PROFILE_SPECIFIER=#{ENV["PROVISIONING_PROFILE_NAME"]}"
       ].join(" "),
       export_options: {

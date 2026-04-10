@@ -24,8 +24,21 @@ jobs:
           ruby-version: "3.4"
           bundler-cache: true
 
+      - name: Install Mint
+        run: HOMEBREW_NO_AUTO_UPDATE=1 brew install mint
+
+      - name: Install Genesis
+        run: mint install yonaskolb/Genesis
+
       - name: Install XcodeGen
         run: HOMEBREW_NO_AUTO_UPDATE=1 brew install xcodegen
+
+      - name: Generate project.yml
+        run: |
+          DEVELOPMENT_TEAM=${{ secrets.DEVELOPMENT_TEAM }} \
+          CODE_SIGN_STYLE=Manual \
+          PRODUCT_BUNDLE_IDENTIFIER=${{ secrets.PRODUCT_BUNDLE_IDENTIFIER }} \
+          mint run yonaskolb/Genesis genesis generate genesis.yml --non-interactive
 
       - name: Generate Xcode project
         run: xcodegen generate
