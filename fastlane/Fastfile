@@ -50,7 +50,7 @@ platform :ios do
         "CODE_SIGN_STYLE=Manual",
         "DEVELOPMENT_TEAM=GY636G2259",
         "CODE_SIGN_IDENTITY='Apple Distribution'",
-        "PROVISIONING_PROFILE_SPECIFIER=#{ENV["PROVISIONING_PROFILE_NAME"]}"
+        "PROVISIONING_PROFILE_SPECIFIER='#{ENV['PROVISIONING_PROFILE_NAME']}'"
       ].join(" "),
       export_options: {
         method: "app-store",
