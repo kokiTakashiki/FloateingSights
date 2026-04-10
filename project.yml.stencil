@@ -1,0 +1,31 @@
+name: FloateingSights
+options:
+  bundleIdPrefix: takashiki
+  deploymentTarget:
+    iOS: "18.0"
+
+targets:
+  FloateingSights:
+    type: application
+    platform: iOS
+    sources:
+      - FloateingSights
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: {{ PRODUCT_BUNDLE_IDENTIFIER }}
+        PRODUCT_NAME: FloateingSights
+        SWIFT_VERSION: "6"
+        INFOPLIST_FILE: FloateingSights/Info.plist
+        DEVELOPMENT_TEAM: {{ DEVELOPMENT_TEAM }}
+        CODE_SIGN_STYLE: {{ CODE_SIGN_STYLE }}
+        VERSIONING_SYSTEM: apple-generic
+        CURRENT_PROJECT_VERSION: 1
+        SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD: "NO"
+        SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD: "NO"
+      configs:
+        Debug:
+          SWIFT_OPTIMIZATION_LEVEL: "-Onone"
+        Release:
+          SWIFT_OPTIMIZATION_LEVEL: "-Owholemodule"
+    scheme:
+      gatherCoverageData: false
