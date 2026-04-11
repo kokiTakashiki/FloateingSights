@@ -1,2 +1,2 @@
-app_identifier "com.takashiki.FloatingSights"
-team_id "GY636G2259"
+app_identifier ENV["PRODUCT_BUNDLE_IDENTIFIER"]
+team_id ENV["DEVELOPMENT_TEAM"]

@@ -48,16 +48,16 @@ platform :ios do
       output_name: "FloatingSights.ipa",
       xcargs: [
         "CODE_SIGN_STYLE=Manual",
-        "DEVELOPMENT_TEAM=GY636G2259",
+        "DEVELOPMENT_TEAM=#{ENV['DEVELOPMENT_TEAM']}",
         "CODE_SIGN_IDENTITY='Apple Distribution'",
         "PROVISIONING_PROFILE_SPECIFIER='#{ENV['PROVISIONING_PROFILE_NAME']}'"
       ].join(" "),
       export_options: {
         method: "app-store",
-        teamID: "GY636G2259",
+        teamID: ENV["DEVELOPMENT_TEAM"],
         signingStyle: "manual",
         provisioningProfiles: {
-          "com.takashiki.FloatingSights" => ENV["PROVISIONING_PROFILE_NAME"]
+          ENV["PRODUCT_BUNDLE_IDENTIFIER"] => ENV["PROVISIONING_PROFILE_NAME"]
         }
       },
       clean: true
