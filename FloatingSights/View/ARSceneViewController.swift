@@ -30,11 +30,24 @@ final class ARSceneViewController: UIViewController, ScrollViewDelegate, ARSCNVi
     private lazy var startTime = Date()
     fileprivate var _display_link: CADisplayLink!
     var isFloat: Bool = false
+    private let isARSupported = ARWorldTrackingConfiguration.isSupported
+    private lazy var arUnavailableConfiguration: UIContentUnavailableConfiguration = {
+        var config = UIContentUnavailableConfiguration.empty()
+        config.image = UIImage(systemName: "arkit")
+        config.text = "ARKit Not Supported"
+        config.secondaryText = "This device does not support AR World Tracking. Please use an ARKit-compatible device."
+        return config
+    }()
 
     // MARK: - Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        guard isARSupported else {
+            contentUnavailableConfiguration = arUnavailableConfiguration
+            return
+        }
 
         setUpARSceneView()
         setUpMenuView()
@@ -64,6 +77,8 @@ final class ARSceneViewController: UIViewController, ScrollViewDelegate, ARSCNVi
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
+        guard isARSupported else { return }
+
         let configuration = ARWorldTrackingConfiguration()
         configuration.planeDetection = .horizontal
         sceneView.session.run(configuration)
@@ -74,6 +89,8 @@ final class ARSceneViewController: UIViewController, ScrollViewDelegate, ARSCNVi
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+
+        guard isARSupported else { return }
 
         sceneView.session.pause()
         _display_link.remove(from: RunLoop.current, forMode: RunLoop.Mode.common)
