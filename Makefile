@@ -143,14 +143,28 @@ generate:
 	xcodegen generate
 	@echo "プロジェクトファイルの生成が完了しました"
 
-# SwiftFormatの実行
+# SwiftFormatの実行（macOS: Homebrew / Linux: GitHub Releasesから自動ダウンロード）
+SWIFTFORMAT_VERSION := 0.60.1
+SWIFTFORMAT_LINUX_BIN := .build/swiftformat/swiftformat_linux
+
 format:
 	@echo "SwiftFormatでコードをフォーマットしています..."
-	@if ! which swiftformat > /dev/null; then \
+	@if which swiftformat > /dev/null 2>&1; then \
+		swiftformat FloatingSights/; \
+	elif [ "$$(uname)" = "Linux" ]; then \
+		if [ ! -x $(SWIFTFORMAT_LINUX_BIN) ]; then \
+			echo "SwiftFormat $(SWIFTFORMAT_VERSION) をダウンロード中..."; \
+			mkdir -p .build/swiftformat; \
+			curl -sL https://github.com/nicklockwood/SwiftFormat/releases/download/$(SWIFTFORMAT_VERSION)/swiftformat_linux.zip -o .build/swiftformat/swiftformat.zip; \
+			unzip -o .build/swiftformat/swiftformat.zip -d .build/swiftformat; \
+			chmod +x $(SWIFTFORMAT_LINUX_BIN); \
+			rm -f .build/swiftformat/swiftformat.zip; \
+		fi; \
+		$(SWIFTFORMAT_LINUX_BIN) FloatingSights/; \
+	else \
 		echo "SwiftFormatがインストールされていません。'make setup'を実行してください"; \
 		exit 1; \
 	fi
-	swiftformat FloatingSights/
 
 # ビルド成果物をクリーン
 clean:
