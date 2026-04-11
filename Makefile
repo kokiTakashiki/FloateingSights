@@ -1,9 +1,10 @@
-.PHONY: help setup upgrade format open clean build generate reset
+.PHONY: help setup setup-linux upgrade format open clean build generate reset
 
 # デフォルトターゲット - ヘルプの表示
 help:
 	@echo "利用可能なコマンド:"
-	@echo "  make setup    - 開発環境をセットアップします（XcodeGen, SwiftFormat, Genesis, rbenv, Fastlane）"
+	@echo "  make setup       - 開発環境をセットアップします（macOS: XcodeGen, SwiftFormat, Genesis, rbenv, Fastlane）"
+	@echo "  make setup-linux - Linux用の開発環境をセットアップします（SwiftFormat）"
 	@echo "  make upgrade  - 開発環境ツールをアップグレードします（XcodeGen, SwiftFormat）"
 	@echo "  make generate - XcodeGenでプロジェクトファイルを生成します"
 	@echo "  make format   - SwiftFormatでコードをフォーマットします"
@@ -84,6 +85,23 @@ setup:
 	mint run yonaskolb/Genesis genesis generate genesis.yml --non-interactive
 	@echo "セットアップが完了しました！"
 
+# Linux用の開発環境セットアップ（SwiftFormat）
+SWIFTFORMAT_VERSION := 0.60.1
+
+setup-linux:
+	@echo "Linux用の開発環境をセットアップしています..."
+	@if [ "$$(uname)" != "Linux" ]; then \
+		echo "このコマンドはLinux専用です。macOSでは 'make setup' を使用してください"; \
+		exit 1; \
+	fi
+	@echo "SwiftFormat $(SWIFTFORMAT_VERSION) をインストール中..."
+	@curl -sL https://github.com/nicklockwood/SwiftFormat/releases/download/$(SWIFTFORMAT_VERSION)/swiftformat_linux.zip -o /tmp/swiftformat.zip
+	@unzip -o /tmp/swiftformat.zip -d /tmp/swiftformat
+	@install -m 755 /tmp/swiftformat/swiftformat_linux /usr/local/bin/swiftformat
+	@rm -rf /tmp/swiftformat /tmp/swiftformat.zip
+	@echo "SwiftFormat $$(swiftformat --version) をインストールしました"
+	@echo "セットアップが完了しました！"
+
 # 開発環境ツールのバージョンアップ
 upgrade:
 	@echo "開発環境ツールのバージョンをアップグレードしています..."
@@ -143,28 +161,14 @@ generate:
 	xcodegen generate
 	@echo "プロジェクトファイルの生成が完了しました"
 
-# SwiftFormatの実行（macOS: Homebrew / Linux: GitHub Releasesから自動ダウンロード）
-SWIFTFORMAT_VERSION := 0.60.1
-SWIFTFORMAT_LINUX_BIN := .build/swiftformat/swiftformat_linux
-
+# SwiftFormatの実行
 format:
 	@echo "SwiftFormatでコードをフォーマットしています..."
-	@if which swiftformat > /dev/null 2>&1; then \
-		swiftformat FloatingSights/; \
-	elif [ "$$(uname)" = "Linux" ]; then \
-		if [ ! -x $(SWIFTFORMAT_LINUX_BIN) ]; then \
-			echo "SwiftFormat $(SWIFTFORMAT_VERSION) をダウンロード中..."; \
-			mkdir -p .build/swiftformat; \
-			curl -sL https://github.com/nicklockwood/SwiftFormat/releases/download/$(SWIFTFORMAT_VERSION)/swiftformat_linux.zip -o .build/swiftformat/swiftformat.zip; \
-			unzip -o .build/swiftformat/swiftformat.zip -d .build/swiftformat; \
-			chmod +x $(SWIFTFORMAT_LINUX_BIN); \
-			rm -f .build/swiftformat/swiftformat.zip; \
-		fi; \
-		$(SWIFTFORMAT_LINUX_BIN) FloatingSights/; \
-	else \
+	@if ! which swiftformat > /dev/null 2>&1; then \
 		echo "SwiftFormatがインストールされていません。'make setup'を実行してください"; \
 		exit 1; \
 	fi
+	swiftformat FloatingSights/
 
 # ビルド成果物をクリーン
 clean:
