@@ -1,10 +1,9 @@
-.PHONY: help setup setup-linux upgrade format open clean build generate reset
+.PHONY: help setup upgrade format open clean build generate reset
 
 # デフォルトターゲット - ヘルプの表示
 help:
 	@echo "利用可能なコマンド:"
-	@echo "  make setup       - 開発環境をセットアップします（macOS: XcodeGen, SwiftFormat, Genesis, rbenv, Fastlane）"
-	@echo "  make setup-linux - Linux用の開発環境をセットアップします（SwiftFormat）"
+	@echo "  make setup    - 開発環境をセットアップします（macOS/Linux対応）"
 	@echo "  make upgrade  - 開発環境ツールをアップグレードします（XcodeGen, SwiftFormat）"
 	@echo "  make generate - XcodeGenでプロジェクトファイルを生成します"
 	@echo "  make format   - SwiftFormatでコードをフォーマットします"
@@ -14,9 +13,22 @@ help:
 	@echo "  make reset    - .envとproject.ymlを削除します"
 	@echo "  make help     - このヘルプを表示します"
 
-# 開発環境のセットアップ（XcodeGen, SwiftFormat, Genesis, rbenv, Fastlane）
+# 開発環境のセットアップ（macOS: Homebrew経由 / Linux: GitHub Releases経由）
+SWIFTFORMAT_VERSION := 0.60.1
+
 setup:
 	@echo "開発環境をセットアップしています..."
+	@if [ "$$(uname)" = "Darwin" ]; then \
+		$(MAKE) _setup-macos; \
+	elif [ "$$(uname)" = "Linux" ]; then \
+		$(MAKE) _setup-linux; \
+	else \
+		echo "サポートされていないプラットフォームです: $$(uname)"; \
+		exit 1; \
+	fi
+	@echo "セットアップが完了しました！"
+
+_setup-macos:
 	@which brew > /dev/null || (echo "Homebrewがインストールされていません。まずHomebrewをインストールしてください。" && exit 1)
 	@echo "必要なツールをインストールしています..."
 	@if ! which mint > /dev/null; then \
@@ -83,24 +95,19 @@ setup:
 	@echo "Genesisでproject.ymlを生成しています..."
 	@set -a; . ./.env; set +a; \
 	mint run yonaskolb/Genesis genesis generate genesis.yml --non-interactive
-	@echo "セットアップが完了しました！"
 
-# Linux用の開発環境セットアップ（SwiftFormat）
-SWIFTFORMAT_VERSION := 0.60.1
-
-setup-linux:
-	@echo "Linux用の開発環境をセットアップしています..."
-	@if [ "$$(uname)" != "Linux" ]; then \
-		echo "このコマンドはLinux専用です。macOSでは 'make setup' を使用してください"; \
-		exit 1; \
+_setup-linux:
+	@if ! which swiftformat > /dev/null 2>&1; then \
+		echo "SwiftFormat $(SWIFTFORMAT_VERSION) をインストール中..."; \
+		curl -sL https://github.com/nicklockwood/SwiftFormat/releases/download/$(SWIFTFORMAT_VERSION)/swiftformat_linux.zip -o /tmp/swiftformat.zip; \
+		unzip -o /tmp/swiftformat.zip -d /tmp/swiftformat; \
+		install -m 755 /tmp/swiftformat/swiftformat_linux /usr/local/bin/swiftformat; \
+		rm -rf /tmp/swiftformat /tmp/swiftformat.zip; \
+		echo "SwiftFormat $$(swiftformat --version) をインストールしました"; \
+	else \
+		echo "SwiftFormatは既にインストール済み"; \
+		swiftformat --version; \
 	fi
-	@echo "SwiftFormat $(SWIFTFORMAT_VERSION) をインストール中..."
-	@curl -sL https://github.com/nicklockwood/SwiftFormat/releases/download/$(SWIFTFORMAT_VERSION)/swiftformat_linux.zip -o /tmp/swiftformat.zip
-	@unzip -o /tmp/swiftformat.zip -d /tmp/swiftformat
-	@install -m 755 /tmp/swiftformat/swiftformat_linux /usr/local/bin/swiftformat
-	@rm -rf /tmp/swiftformat /tmp/swiftformat.zip
-	@echo "SwiftFormat $$(swiftformat --version) をインストールしました"
-	@echo "セットアップが完了しました！"
 
 # 開発環境ツールのバージョンアップ
 upgrade:
