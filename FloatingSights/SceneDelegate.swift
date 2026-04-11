@@ -1,6 +1,6 @@
 //
 //  SceneDelegate.swift
-//  FloateingSights
+//  FloatingSights
 //
 //  Created by takedatakashiki on 2026/04/10.
 //

@@ -1,4 +1,4 @@
-name: FloateingSights Project
+name: FloatingSights Project
 options:
   - name: DEVELOPMENT_TEAM
     question: "Apple Developer Team IDを入力してください"

@@ -1,21 +1,21 @@
-name: FloateingSights
+name: FloatingSights
 options:
   bundleIdPrefix: takashiki
   deploymentTarget:
     iOS: "18.0"
 
 targets:
-  FloateingSights:
+  FloatingSights:
     type: application
     platform: iOS
     sources:
-      - FloateingSights
+      - FloatingSights
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: {{ PRODUCT_BUNDLE_IDENTIFIER }}
-        PRODUCT_NAME: FloateingSights
+        PRODUCT_NAME: FloatingSights
         SWIFT_VERSION: "6"
-        INFOPLIST_FILE: FloateingSights/Info.plist
+        INFOPLIST_FILE: FloatingSights/Info.plist
         DEVELOPMENT_TEAM: {{ DEVELOPMENT_TEAM }}
         CODE_SIGN_STYLE: {{ CODE_SIGN_STYLE }}
         VERSIONING_SYSTEM: apple-generic

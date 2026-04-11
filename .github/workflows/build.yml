@@ -40,8 +40,8 @@ jobs:
       - name: Build
         run: |
           xcodebuild build \
-            -project FloateingSights.xcodeproj \
-            -scheme FloateingSights \
+            -project FloatingSights.xcodeproj \
+            -scheme FloatingSights \
             -destination 'generic/platform=iOS Simulator' \
             CODE_SIGN_IDENTITY="" \
             CODE_SIGNING_REQUIRED=NO \

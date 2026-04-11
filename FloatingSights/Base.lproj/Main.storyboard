@@ -10,7 +10,7 @@
         <!--View Controller-->
         <scene sceneID="tXr-a1-R10">
             <objects>
-                <viewController id="BV1-FR-VrT" customClass="ViewController" customModule="FloateingSights" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BV1-FR-VrT" customClass="ViewController" customModule="FloatingSights" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="qeG-jC-HSq" customClass="ARSCNView">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -28,7 +28,7 @@
                                             <action selector="menuButtonTapperd:" destination="BV1-FR-VrT" eventType="touchUpInside" id="XyW-C3-Lym"/>
                                         </connections>
                                     </button>
-                                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VEx-HU-JhM" customClass="TouchScrollView" customModule="FloateingSights" customModuleProvider="target">
+                                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VEx-HU-JhM" customClass="TouchScrollView" customModule="FloatingSights" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="50" width="393" height="402"/>
                                     </scrollView>
                                 </subviews>
