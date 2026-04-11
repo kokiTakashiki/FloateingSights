@@ -63,6 +63,7 @@ final class ARSceneViewController: UIViewController, ScrollViewDelegate, ARSCNVi
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: animated)
 
         let configuration = ARWorldTrackingConfiguration()
         configuration.planeDetection = .horizontal
@@ -74,6 +75,7 @@ final class ARSceneViewController: UIViewController, ScrollViewDelegate, ARSCNVi
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: animated)
 
         sceneView.session.pause()
         _display_link.remove(from: RunLoop.current, forMode: RunLoop.Mode.common)
