@@ -1,6 +1,6 @@
 //
 //  PlaneNode.swift
-//  FloateingSights
+//  FloatingSights
 //
 //  Created by takasiki on H30/07/24.
 //  Copyright © 平成30年 takasiki. All rights reserved.

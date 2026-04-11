@@ -7,7 +7,7 @@ help:
 	@echo "  make upgrade  - 開発環境ツールをアップグレードします（XcodeGen, SwiftFormat）"
 	@echo "  make generate - XcodeGenでプロジェクトファイルを生成します"
 	@echo "  make format   - SwiftFormatでコードをフォーマットします"
-	@echo "  make open     - FloateingSights.xcodeprojをXcodeで開きます（ルート）"
+	@echo "  make open     - FloatingSights.xcodeprojをXcodeで開きます（ルート）"
 	@echo "  make clean    - ビルド成果物をクリーンします"
 	@echo "  make build    - プロジェクトをビルドします"
 	@echo "  make reset    - .envとproject.ymlを削除します"
@@ -150,18 +150,18 @@ format:
 		echo "SwiftFormatがインストールされていません。'make setup'を実行してください"; \
 		exit 1; \
 	fi
-	swiftformat FloateingSights/
+	swiftformat FloatingSights/
 
 # ビルド成果物をクリーン
 clean:
 	@echo "ビルド成果物をクリーンしています..."
-	xcodebuild clean -project FloateingSights.xcodeproj -scheme FloateingSights
+	xcodebuild clean -project FloatingSights.xcodeproj -scheme FloatingSights
 	@echo "クリーンが完了しました"
 
 # プロジェクトをビルド
 build: generate
 	@echo "プロジェクトをビルドしています..."
-	xcodebuild build -project FloateingSights.xcodeproj -scheme FloateingSights
+	xcodebuild build -project FloatingSights.xcodeproj -scheme FloatingSights
 	@echo "ビルドが完了しました"
 
 # .envとproject.ymlを削除してリセット
@@ -172,5 +172,5 @@ reset:
 
 # XcodeでプロジェクトファイルをOpen
 open: generate
-	@echo "FloateingSights.xcodeprojをXcodeで開いています..."
-	open FloateingSights.xcodeproj
+	@echo "FloatingSights.xcodeprojをXcodeで開いています..."
+	open FloatingSights.xcodeproj
