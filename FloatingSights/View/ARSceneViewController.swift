@@ -1,6 +1,6 @@
 //
 //  ARSceneViewController.swift
-//  FloateingSights
+//  FloatingSights
 //
 //  Created by takedatakashiki on 2026/04/10.
 //
@@ -286,7 +286,7 @@ final class ARSceneViewController: UIViewController, ScrollViewDelegate, ARSCNVi
         let hitTestResult = sceneView.hitTest(sceneView.center, types: .existingPlaneUsingExtent)
         guard !hitTestResult.isEmpty, let hitResult = hitTestResult.first else { return }
 
-        let sceneNames = ["KokeDama05", "KokeDama06", "KokeDama07", "KokeDama08", "KokeDama09"]
+        let sceneNames = ["FloatingObject05", "FloatingObject06", "FloatingObject07", "FloatingObject08", "FloatingObject09"]
         let fragmentFunctions = ["myFragment", "sixFragment", "sevenFragment", "eightFragment", "nineFragment"]
         let assetsName = "art.scnassets"
 
