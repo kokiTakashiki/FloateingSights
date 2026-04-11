@@ -24,7 +24,7 @@ class PlaneNode: SCNNode {
         super.init()
 
         geometry = SCNPlane(width: CGFloat(anchor.extent.x), height: CGFloat(anchor.extent.z))
-        SCNVector3Make(anchor.center.x, 0, anchor.center.z)
+        position = SCNVector3Make(anchor.center.x, 0, anchor.center.z)
         transform = SCNMatrix4MakeRotation(-Float.pi / 2, 1, 0, 0)
         physicsBody = SCNPhysicsBody(type: .static, shape: SCNPhysicsShape(geometry: geometry!, options: nil))
         setPhysicsBody()
