@@ -3,6 +3,9 @@ name: TestFlight Upload
 on:
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   upload:
     runs-on: macos-26
