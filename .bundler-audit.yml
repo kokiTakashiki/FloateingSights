@@ -1,0 +1,13 @@
+---
+# Advisories that cannot be fixed yet because fastlane (latest: 2.236.1)
+# pins excon to "< 1.0.0" and faraday to "~> 1.0".
+# Remove these entries once fastlane supports excon >= 1.5.0 / faraday >= 2.14.3.
+ignore:
+  # excon 0.112.0: redact additional sensitive/risky headers when following
+  # redirects. Fixed in excon >= 1.5.0.
+  - CVE-2026-54171
+  - GHSA-48rx-c7pg-q66r
+  # faraday 1.10.5: uncontrolled recursion in NestedParamsEncoder allows stack
+  # exhaustion DoS via deeply nested query parameters. Fixed in faraday >= 2.14.3.
+  - CVE-2026-54297
+  - GHSA-98m9-hrrm-r99r
