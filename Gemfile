@@ -2,7 +2,7 @@
 
 source "https://rubygems.org"
 
-gem "fastlane", "~> 2.236"
+gem "fastlane", "~> 2.237"
 
 group :development do
   gem "bundler-audit", "~> 0.9"
